@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bl.minisms.mapper.StudentMapper">
+
+    <resultMap type="com.bl.minisms.model.Student" id="studentMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="studentNumber" column="student_number"/>
+        <result property="birthDate" column="birth_date"/>
+        <result property="genderValue" column="gender_value"/>
+        <result property="startingDate" column="starting_date"/>
+        <result property="leavingDate" column="leaving_date"/>
+        <result property="address" column="address"/>
+        <association property="category" javaType="com.bl.minisms.model.Category">
+            <result property="id" column="category_id"/>
+            <result property="name" column="category_name"/>
+        </association>
+        <collection property="contactList" ofType="com.bl.minisms.model.Contact">
+            <result property="id" column="contact_id"/>
+            <result property="name" column="contact_name"/>
+            <result property="relationshipValue" column="relationship_value"/>
+            <result property="address" column="contact_address"/>
+            <result property="email" column="contact_email"/>
+            <result property="phone" column="contact_phone"/>
+        </collection>
+    </resultMap>
+
+    <update id="update" parameterType="student">
+        UPDATE student
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="birthDate != null">
+                birth_date = #{birthDate},
+            </if>
+            <if test="genderValue != null">
+                gender_value = #{genderValue},
+            </if>
+            <if test="startingDate != null">
+                starting_date = #{startingDate},
+            </if>
+            <if test="leavingDate != null">
+                leaving_date = #{leavingDate},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="category != null">
+                category_id = #{category.id}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <sql id="sql_Details">
+        select s.*,
+               cate.id as category_id, cate.name as category_name,
+               cont.id as contact_id, cont.name as contact_name, cont.relationship_value, cont.address as contact_address, cont.email as contact_email, cont.phone as contact_phone
+        from student s
+        left join student_contact sc on sc.stu_id = s.id
+        left join category cate on cate.id = s.category_id
+        left join contact cont on cont.id = sc.cont_id
+    </sql>
+
+    <sql id="sql_list">
+        select s.*,
+               cate.id as category_id, cate.name as category_name
+        from student as s
+        left join category cate on cate.id = s.category_id
+        order by s.id DESC
+    </sql>
+
+    <select id="selectById" parameterType="long" resultMap="studentMap">
+            <include refid="sql_Details"/>
+            where s.id = #{id};
+    </select>
+
+    <select id="selectAll" parameterType="int" resultMap="studentMap" >
+        <include refid="sql_list"/>
+    </select>
+
+    <select id="selectAllByPage" parameterType="int" resultMap="studentMap" >
+        <include refid="sql_list"/>
+        limit #{startIndex}, #{dataSize};
+    </select>
+
+</mapper>
