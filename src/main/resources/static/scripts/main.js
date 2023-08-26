@@ -1,6 +1,4 @@
-
-
-    $(function (){
+$(function () {
 
     loadStuList();
 
@@ -11,17 +9,17 @@
     /**
      *  clear student detail
      */
-    $('#stuDetailModal').on('hide.bs.modal', function (e){
+    $('#stuDetailModal').on('hide.bs.modal', function (e) {
 
-    $("#stuId").text("");
-    $("#stuNumber").text("");
-    $(':input','#stuForm')
-    .not(':button, :submit, :reset, :hidden')
-    .val('')
-    .removeAttr('checked')
-    .removeAttr('selected');
-    $(".alert").hide();
-})
+        $("#stuId").text("");
+        $("#stuNumber").text("");
+        $(':input', '#stuForm')
+            .not(':button, :submit, :reset, :hidden')
+            .val('')
+            .removeAttr('checked')
+            .removeAttr('selected');
+        $(".alert").hide();
+    })
 
 
     initDatepicker('#bdDatepicker');
@@ -31,74 +29,74 @@
     /**
      *  save student
      */
-    $("#saveBtn").on("click",function(){
-    let stuId = $(this).attr("stu-id");
-    saveStu(stuId);
-})
+    $("#saveBtn").on("click", function () {
+        let stuId = $(this).attr("stu-id");
+        saveStu(stuId);
+    })
 
 
 })
 
-    function loadStuList(pageNo){
+function loadStuList(pageNo) {
     pageNo = pageNo || 1;
     $.ajax({
-    type:"get",
-    async:true,
-    url:getRequestPath("student/list/"+pageNo),
-    dataType:"json",
-    error: function(e){
-    console.log("student data loading error" + e);
-},
-    success: function(jData){
-    let pageData = jData.data;
-    let pageIndex = pageData.pageIndex;
+        type: "get",
+        async: true,
+        url: getRequestPath("student/list/" + pageNo),
+        dataType: "json",
+        error: function (e) {
+            console.log("student data loading error" + e);
+        },
+        success: function (jData) {
+            let pageData = jData.data;
+            let pageIndex = pageData.pageIndex;
 
-    /**
-     *  student list data
-     */
-    let stuList = pageData.dataList;
-    if(stuList.length > 0){
-    let template = $("#stuListTemplate").html();
-    let content = Mustache.render(template, {items:stuList});
-    $("#stuList").empty();
-    $("#stuList").append(content);
+            /**
+             *  student list data
+             */
+            let stuList = pageData.dataList;
+            if (stuList.length > 0) {
+                let template = $("#stuListTemplate").html();
+                let content = Mustache.render(template, {items: stuList});
+                $("#stuList").empty();
+                $("#stuList").append(content);
+            }
+
+            /**
+             *  pagination init
+             *
+             */
+            let cc = '';
+            let isActive = '';
+
+            for (var i = 0; i < pageData.totalPage; i++) {
+                let pageNo = i + 1;
+                if (pageNo == pageIndex) {
+                    isActive = 'active';
+                } else {
+                    isActive = '';
+                }
+                cc += '<li class="page-item ' + isActive + '"><a class="page-link" href="#" onclick="loadStuList(' + pageNo + ')">' + pageNo + '</a></li>';
+            }
+
+            $("#pagination").empty();
+            $("#pagination").append(cc);
+
+
+            /**
+             *  enable tooltip
+             */
+            $('[data-toggle="tooltip"]').tooltip();
+
+        }, beforeSend: function () {
+            $("#loadIcon").show();
+        }, complete: function () {
+            $("#loadIcon").hide();
+        }
+    })
 }
 
-    /**
-     *  pagination init
-     *
-     */
-    let cc = '';
-    let isActive = '';
-
-    for(var i=0; i<pageData.totalPage; i++){
-    let pageNo = i+1;
-    if(pageNo == pageIndex){
-    isActive = 'active';
-}else{
-    isActive = '';
-}
-    cc += '<li class="page-item '+ isActive +'"><a class="page-link" href="#" onclick="loadStuList('+pageNo+')">'+pageNo+'</a></li>';
-}
-
-    $("#pagination").empty();
-    $("#pagination").append(cc);
-
-
-    /**
-     *  enable tooltip
-     */
-    $('[data-toggle="tooltip"]').tooltip();
-
-},beforeSend:function(){
-    $("#loadIcon").show();
-},complete:function(){
-    $("#loadIcon").hide();
-}
-})
-}
-
-    function loadCategoryList(){
+function loadCategoryList() {
     $.ajax({
         type: "get",
         async: true,
@@ -119,7 +117,7 @@
     })
 }
 
-    function initDatepicker(id){
+function initDatepicker(id) {
     $(id).datepicker({
         uiLibrary: 'bootstrap4',
         format: 'dd/mm/yyyy',
@@ -127,7 +125,7 @@
     });
 }
 
-    function loadStuDetail() {
+function loadStuDetail() {
     $('#stuDetailModal').on('show.bs.modal', function (e) {
 
         let stuId = $(e.relatedTarget).attr("stu-id");
@@ -191,12 +189,12 @@
     })
 }
 
-    function saveStu(stuId){
+function saveStu(stuId) {
     let requestUrl = getRequestPath("student/info");
     let requestType = "post";
-    if(stuId > 0){
-    requestType = "put";
-}
+    if (stuId > 0) {
+        requestType = "put";
+    }
 
     let requestData = $("#stuForm").serializeJSON();
     requestData['id'] = stuId;
@@ -205,28 +203,28 @@
      * To get checked contact individually
      */
     $("input[name='contactList']:checked").each(function (index, item) {
-    contactArray.push(item.value);
-});
+        contactArray.push(item.value);
+    });
     requestData['contactList'] = contactArray;
 
     $.ajax({
-    type:requestType,
-    async:true,
-    url:requestUrl,
-    data:JSON.stringify(requestData),
-    contentType:"application/json",
-    dataType:"json",
-    error: function(e){
-    failedAlert();
-    console.log("save student detail error" + e);
-},
-    success: function(jData){
-    successAlert();
-}
-})
+        type: requestType,
+        async: true,
+        url: requestUrl,
+        data: JSON.stringify(requestData),
+        contentType: "application/json",
+        dataType: "json",
+        error: function (e) {
+            failedAlert();
+            console.log("save student detail error" + e);
+        },
+        success: function (jData) {
+            successAlert();
+        }
+    })
 }
 
-    function removeStu(id){
+function removeStu(id) {
 
     $.ajax({
         type: "delete",
@@ -243,10 +241,13 @@
     })
 }
 
-    function successAlert(){
-    $(".alert-success").slideDown();
+function successAlert() {
+    $(".alert-success").slideDown(500,function(){
+        sleep(500);
+        reloadPage();
+    });
 }
 
-    function failedAlert(){
+function failedAlert() {
     $(".alert-danger").slideDown();
 }

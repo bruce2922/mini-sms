@@ -271,3 +271,11 @@ body {
     height: 100px;
     border-radius: 8px;
 }
+
+.sms-alert {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    z-index: 2050;
+}

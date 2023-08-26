@@ -15,6 +15,22 @@
 </head>
 <body>
 
+<!-- operation success alert -->
+<div class="alert alert-success alert-dismissible fade show sms-alert" role="alert" style="display:none">
+    Student saved successfully!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<!-- operation failed alert -->
+<div class="alert alert-danger alert-dismissible fade show sms-alert" role="alert" style="display:none">
+    Student saved failed!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
 <!-- student list main table-->
 <div class="event-schedule-area-two bg-color pad100">
     <div class="container">
@@ -88,22 +104,6 @@
 
 <!-- student detail -->
 <div id="stuDetailModal" class="modal fade" aria-hidden="true" style="display:none">
-
-    <!-- operation success alert -->
-    <div class="alert alert-success alert-dismissible fade show" role="alert" style="display:none">
-        Student saved successfully!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-
-    <!-- operation failed alert -->
-    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="display:none">
-        Student saved failed!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
 
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
