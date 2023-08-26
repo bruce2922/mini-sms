@@ -1,5 +1,6 @@
 package com.bl.minisms.model.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Gender {
@@ -24,6 +25,7 @@ public enum Gender {
         return desc;
     }
 
+    @JsonCreator
     public static Gender getByValue(int value) {
         for(Gender g: Gender.values()) {
             if(g.getValue() == value){

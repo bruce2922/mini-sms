@@ -142,9 +142,12 @@ function loadStuDetail() {
                 success: function (jData) {
                     let contactList = jData.data;
 
+                    $("#gender").get(0).selectedIndex=0;
+                    $("#category").get(0).selectedIndex=0;
+
                     if (contactList.length > 0) {
                         $("#contactList").empty();
-                        let template = $("#stuContactListTemplate").html();
+                        let template = $("#newStuContactListTemplate").html();
                         let content = Mustache.render(template, {items: contactList});
                         $("#contactList").append(content);
                     }
@@ -166,10 +169,11 @@ function loadStuDetail() {
                     $("#stuId").text(stuData.id);
                     $("#stuNumber").text(stuData.studentNumber);
                     $("#stuName").val(stuData.name);
-                    //$("#gender").find("option:selected").text(stuData.gender); //TODO
+
+                    $("#gender option:contains("+stuData.gender+")").prop("selected",true);
                     $("form").find("input[name='birthDate']").val(stuData.birthDate);
                     $("form").find("input[name='address']").val(stuData.address);
-                    // $("form input[name='category']"); //TODO
+                    $("#category").val(stuData.category.id);
 
 
                     $("form").find("input[name='startingDate']").val(stuData.startingDate);
@@ -177,7 +181,7 @@ function loadStuDetail() {
 
                     if (contactList.length > 0) {
                         $("#contactList").empty();
-                        let template = $("#stuContactListTemplate").html();
+                        let template = $("#oldStuContactListTemplate").html();
                         let content = Mustache.render(template, {items: contactList});
                         $("#contactList").append(content);
                     }
@@ -200,7 +204,7 @@ function saveStu(stuId) {
     requestData['id'] = stuId;
     let contactArray = new Array();
     /**
-     * To get checked contact individually
+     * To individually get checked contact
      */
     $("input[name='contactList']:checked").each(function (index, item) {
         contactArray.push(item.value);
