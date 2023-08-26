@@ -44,7 +44,7 @@ class StudentContactServiceTest {
         LocalDate birthDate = LocalDate.parse("1982-09-22");
         String address = "North Shore, Auckland, NZ";
         Category category = categoryService.getAll().get(0);
-        student = new Student(name, stuNum, birthDate, Gender.MALE, address,category, null);
+        student = new Student(name, stuNum, birthDate, Gender.MALE, address,category, new ArrayList<Contact>());
     }
 
     @Test

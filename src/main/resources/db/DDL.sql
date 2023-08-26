@@ -42,5 +42,6 @@ CREATE TABLE `student_contact` (
    `stu_id` bigint NOT NULL,
    `cont_id` bigint NOT NULL,
    PRIMARY KEY (`id`),
-   UNIQUE KEY `student_contact_UN` (`stu_id`,`cont_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+   UNIQUE KEY `student_contact_UN` (`stu_id`,`cont_id`),
+   CONSTRAINT `student_contact_FK` FOREIGN KEY (`stu_id`) REFERENCES `student` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

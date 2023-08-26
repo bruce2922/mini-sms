@@ -36,8 +36,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int removeById(Long id) {
-        return studentMapper.deleteById(id);
+        scMapper.deleteByStuId(id);
+        int result = studentMapper.deleteById(id);
+        return result;
     }
 
     @Override
