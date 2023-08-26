@@ -31,6 +31,10 @@ $(function () {
      */
     $("#saveBtn").on("click", function () {
         let stuId = $(this).attr("stu-id");
+        let validation = dataValid();
+        if(!validation){
+            return validation;
+        }
         saveStu(stuId);
     })
 
@@ -44,8 +48,8 @@ function loadStuList(pageNo) {
         async: true,
         url: getRequestPath("student/list/" + pageNo),
         dataType: "json",
-        error: function (e) {
-            console.log("student data loading error" + e);
+        error: function (xhr,e) {
+            console.log("student data loading error" + xhr.responseText);
         },
         success: function (jData) {
             let pageData = jData.data;
@@ -102,8 +106,8 @@ function loadCategoryList() {
         async: true,
         url: getRequestPath("category/list"),
         dataType: "json",
-        error: function (e) {
-            console.log("category data loading error" + e);
+        error: function (xhr,e) {
+            console.log("category data loading error" + xhr.responseText);
         },
         success: function (jData) {
             let categoryList = jData.data;
@@ -118,10 +122,18 @@ function loadCategoryList() {
 }
 
 function initDatepicker(id) {
+
+    let maxDate = false;
+    if(id === "#bdDatepicker"){
+        maxDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+    }
+
     $(id).datepicker({
         uiLibrary: 'bootstrap4',
         format: 'dd/mm/yyyy',
-        modal: true
+        modal: true,
+        footer: true,
+        maxDate: maxDate
     });
 }
 
@@ -136,8 +148,8 @@ function loadStuDetail() {
                 async: true,
                 url: getRequestPath("contact/list"),
                 dataType: "json",
-                error: function (e) {
-                    console.log("contact list loading error" + e);
+                error: function (xhr,e) {
+                    console.log("contact list loading error" + xhr.responseText);
                 },
                 success: function (jData) {
                     let contactList = jData.data;
@@ -159,8 +171,8 @@ function loadStuDetail() {
                 async: true,
                 url: getRequestPath("student/info/" + stuId),
                 dataType: "json",
-                error: function (e) {
-                    console.log("student detail loading error" + e);
+                error: function (xhr,e) {
+                    console.log("student detail loading error" + xhr.responseText);
                 },
                 success: function (jData) {
                     let stuData = jData.data;
@@ -218,9 +230,9 @@ function saveStu(stuId) {
         data: JSON.stringify(requestData),
         contentType: "application/json",
         dataType: "json",
-        error: function (e) {
+        error: function (xhr,e) {
             failedAlert();
-            console.log("save student detail error" + e);
+            console.log("save student detail error" + xhr.responseText);
         },
         success: function (jData) {
             successAlert();
@@ -236,8 +248,8 @@ function removeStu(id) {
         url: getRequestPath("student/" + id),
         contentType: "application/json",
         dataType: "json",
-        error: function (e) {
-            console.log("remove student error" + e);
+        error: function (xhr,e) {
+            console.log("remove student error" + xhr.responseText);
         },
         success: function (jData) {
             loadStuList();
@@ -254,4 +266,33 @@ function successAlert() {
 
 function failedAlert() {
     $(".alert-danger").slideDown();
+}
+
+function dataValid() {
+    let validation = false;
+    let forms = document.getElementsByClassName('needs-validation');
+    Array.prototype.filter.call(forms, function(form) {
+        if (form.checkValidity() === false) {
+            form.classList.add('was-validated');
+            validation = false;
+            return;
+        }
+        validation = true;
+    });
+
+    let contacts = document.getElementsByName('contactList');
+    let totalUnChecked = 0;
+    let cvi = document.getElementById("contactValidInfo");
+    for(i=0; i<contacts.length; i++){
+        if(!contacts[i].checked)
+            totalUnChecked++;
+    }
+    if(totalUnChecked == contacts.length){
+        validation = false;
+        cvi.style.display = "block";
+    }else{
+        cvi.style.display = "none";
+    }
+
+    return validation;
 }

@@ -9,6 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 @SpringBootTest
@@ -48,6 +51,16 @@ class ContactServiceTest {
     @Test
     void getAllTest() {
         assertEquals(contactService.getCount(),contactService.getAll().size());
+    }
+
+    @Test
+    void getCountByIdsTest() {
+        add();
+        List idList = new ArrayList();
+        idList.add(contact.getId());
+        add();
+        idList.add(contact.getId());
+        assertEquals(2,contactService.getCountByIds(idList));
     }
 
     private int add() {

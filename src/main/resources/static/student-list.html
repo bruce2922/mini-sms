@@ -114,7 +114,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="stuForm">
+                <form id="stuForm" class="needs-validation" novalidate>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>ID: </label>
@@ -127,41 +127,56 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label>Name</label>
-                            <input id="stuName" name="name" type="text" class="form-control" maxlength="30">
+                            <label> Name</label>
+                            <input id="stuName" name="name" type="text" class="form-control" placeholder="(maximum length: 50)" maxlength="50" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid name.
+                            </div>
                         </div>
                         <div class="form-group col-md-2">
-                            <label>Gender</label>
-                            <select id="gender" name="gender" class="form-control">
+                            <label> Gender</label>
+                            <select id="gender" name="gender" class="form-control" required>
                                 <option value="1">Female</option>
                                 <option value="2">Male</option>
                                 <option value="3">Other</option>
                             </select>
+                            <div class="invalid-feedback">
+                                Please select a valid gender.
+                            </div>
                         </div>
                         <div class="form-group col-md-4">
-                            <label>Birth Date</label>
-                            <input id="bdDatepicker" name="birthDate" type="text" class="form-control">
+                            <label> Birth Date</label>
+                            <input id="bdDatepicker" name="birthDate" type="text" class="form-control"  required>
+                            <div class="invalid-feedback">
+                                Please provide a valid birth date.
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>Address</label>
-                        <input id="address" name="address" type="text" class="form-control" placeholder="example: 1234 Main St, suburb, city" maxlength="100">
+                        <label> Address</label>
+                        <input id="address" name="address" type="text" class="form-control" placeholder="example: 1234 Main St, suburb, city (maximum length: 100)" maxlength="100" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid address.
+                        </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label>Category</label>
-                            <select id="category" name="category" class="form-control">
+                            <label> Category</label>
+                            <select id="category" name="category" class="form-control" required>
                             </select>
+                            <div class="invalid-feedback">
+                                Please select a valid category.
+                            </div>
                         </div>
                         <div class="form-group col-md-4">
                             <label>Starting Date</label>
-                            <input id="sdDatepicker" name="startingDate" type="text" class="form-control">
+                            <input id="sdDatepicker" name="startingDate" type="text" class="form-control" readonly>
                         </div>
                         <div class="form-group col-md-4">
                             <label>Leaving Date</label>
-                            <input id="ldDatepicker" name="leavingDate" type="text" class="form-control">
+                            <input id="ldDatepicker" name="leavingDate" type="text" class="form-control" readonly>
                         </div>
                     </div>
 
@@ -171,9 +186,13 @@
                                 <div  id="headingOne">
                                     <h2 class="mb-0">
                                         <button class="btn btn-block btn-link text-left text-white bg-info" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            
                                             Contacts
                                         </button>
                                     </h2>
+                                    <div id="contactValidInfo" class="invalid-feedback">
+                                        Please select at least 1 contact.
+                                    </div>
                                 </div>
 
                                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
@@ -278,7 +297,7 @@
 <script id="newStuContactListTemplate" type="text/html">
     {{#items}}
     <tr>
-        <td class="text-center"><input class="form-check-input" name="contactList" type="checkbox" value="{{id}}" checked></td>
+        <td class="text-center"><input class="form-check-input" name="contactList" type="checkbox" value="{{id}}"></td>
         <td>{{name}}</td>
         <td>{{relationship}}</td>
         <td>{{email}}</td>

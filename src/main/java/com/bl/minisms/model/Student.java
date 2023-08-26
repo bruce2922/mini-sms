@@ -2,6 +2,9 @@ package com.bl.minisms.model;
 
 import com.bl.minisms.model.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -13,15 +16,18 @@ import java.util.List;
 public class Student implements Serializable {
 
     private Long id;
+    @Length(min = 1,max = 50,message = "Length of name is 1 to 50")
     private String name;
     private String studentNumber;
 
+    @NotNull(message = "Birth date is required")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthDate;
 
     private Integer age;
     private Integer genderValue;
+    @NotNull(message = "Invalid gender")
     private Gender gender;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -32,8 +38,11 @@ public class Student implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate leavingDate;
 
+    @Length(min = 1,max = 200,message = "Length of address is 1 to 200")
     private String address;
+    @NotNull(message = "Category is required")
     private Category category;
+    @NotEmpty(message = "At least choose one contact")
     private List<Contact> contactList;
 
     public Student() {
@@ -79,7 +88,9 @@ public class Student implements Serializable {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
-        this.age = Period.between(birthDate, LocalDate.now()).getYears();
+        if(birthDate != null){
+            this.age = Period.between(birthDate, LocalDate.now()).getYears();
+        }
     }
 
     public Integer getAge() {
@@ -105,7 +116,9 @@ public class Student implements Serializable {
 
     public void setGender(Gender gender) {
         this.gender = gender;
-        this.genderValue = gender.getValue();
+        if(gender != null){
+            this.genderValue = gender.getValue();
+        }
     }
 
     public LocalDate getStartingDate() {

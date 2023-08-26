@@ -279,3 +279,7 @@ body {
     width: 100%;
     z-index: 2050;
 }
+
+.required {
+    color:red;
+}

@@ -21,7 +21,7 @@ public interface CategoryMapper {
     @Select("SELECT * FROM category WHERE id = #{id}")
     Category selectById(@Param("id") Long id);
 
-    @Select("SELECT * FROM category")
+    @Select("SELECT * FROM category ORDER BY id ASC")
     List<Category> selectAll();
 
     @Select("SELECT COUNT(1) FROM category")

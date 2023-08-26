@@ -44,4 +44,4 @@ CREATE TABLE `student_contact` (
    PRIMARY KEY (`id`),
    UNIQUE KEY `student_contact_UN` (`stu_id`,`cont_id`),
    CONSTRAINT `student_contact_FK` FOREIGN KEY (`stu_id`) REFERENCES `student` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=198 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

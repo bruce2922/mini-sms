@@ -43,4 +43,9 @@ public class ContactServiceImpl implements ContactService {
     public long getCount() {
         return contactMapper.selectCount();
     }
+
+    @Override
+    public long getCountByIds(List ids) {
+        return contactMapper.selectCountByIds(ids);
+    }
 }

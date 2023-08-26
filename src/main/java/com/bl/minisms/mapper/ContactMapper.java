@@ -21,9 +21,11 @@ public interface ContactMapper {
     @Select("SELECT * FROM contact WHERE id = #{id}")
     Contact selectById(@Param("id") Long id);
 
-    @Select("SELECT * FROM contact")
+    @Select("SELECT * FROM contact ORDER BY id ASC")
     List<Contact> selectAll();
 
     @Select("SELECT COUNT(1) FROM contact")
     long selectCount();
+
+    long selectCountByIds(List ids);
 }

@@ -2,9 +2,14 @@ package com.bl.minisms.service.impl;
 
 import com.bl.minisms.mapper.StudentContactMapper;
 import com.bl.minisms.mapper.StudentMapper;
+import com.bl.minisms.model.Category;
+import com.bl.minisms.model.Contact;
 import com.bl.minisms.model.Student;
 import com.bl.minisms.model.StudentContact;
 import com.bl.minisms.model.dto.PageData;
+import com.bl.minisms.model.exceptions.InvalidArgumentException;
+import com.bl.minisms.service.CategoryService;
+import com.bl.minisms.service.ContactService;
 import com.bl.minisms.service.StudentService;
 import com.bl.minisms.service.common.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -21,6 +27,10 @@ public class StudentServiceImpl implements StudentService {
     private StudentMapper studentMapper;
     @Autowired
     private StudentContactMapper scMapper;
+    @Autowired
+    private CategoryService categoryService;
+    @Autowired
+    private ContactService contactService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -82,5 +92,22 @@ public class StudentServiceImpl implements StudentService {
             scList.add(sc);
         });
         return scList;
+    }
+
+    @Override
+    public void verifyCategory(Long id) throws Exception {
+        Category category = categoryService.getById(id);
+        if(category == null){
+            throw new InvalidArgumentException("Invalid Category");
+        }
+    }
+
+    @Override
+    public void verifyContact(List<Contact> list) throws Exception{
+        List idList = list.stream().map(Contact::getId).collect(Collectors.toList());
+        long count = contactService.getCountByIds(idList);
+        if(list.size() != count){
+            throw new InvalidArgumentException("Invalid Contact");
+        }
     }
 }
