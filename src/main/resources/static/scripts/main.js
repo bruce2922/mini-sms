@@ -44,7 +44,7 @@
     $.ajax({
     type:"get",
     async:true,
-    url:"http://localhost:8964/sms/student/list/"+pageNo,
+    url:getRequestPath("student/list/"+pageNo),
     dataType:"json",
     error: function(e){
     console.log("student data loading error" + e);
@@ -102,7 +102,7 @@
     $.ajax({
         type: "get",
         async: true,
-        url: "http://localhost:8964/sms/category/list",
+        url: getRequestPath("category/list"),
         dataType: "json",
         error: function (e) {
             console.log("category data loading error" + e);
@@ -136,7 +136,7 @@
             $.ajax({
                 type: "get",
                 async: true,
-                url: "http://localhost:8964/sms/contact/list",
+                url: getRequestPath("contact/list"),
                 dataType: "json",
                 error: function (e) {
                     console.log("contact list loading error" + e);
@@ -156,7 +156,7 @@
             $.ajax({
                 type: "get",
                 async: true,
-                url: "http://localhost:8964/sms/student/info/" + stuId,
+                url: getRequestPath("student/info/" + stuId),
                 dataType: "json",
                 error: function (e) {
                     console.log("student detail loading error" + e);
@@ -192,7 +192,7 @@
 }
 
     function saveStu(stuId){
-    let requestUrl = "http://localhost:8964/sms/student/info";
+    let requestUrl = getRequestPath("student/info");
     let requestType = "post";
     if(stuId > 0){
     requestType = "put";
@@ -231,7 +231,7 @@
     $.ajax({
         type: "delete",
         async: true,
-        url: "http://localhost:8964/sms/student/" + id,
+        url: getRequestPath("student/" + id),
         contentType: "application/json",
         dataType: "json",
         error: function (e) {

@@ -1,6 +1,6 @@
 CREATE DATABASE `test_is_sms`;
 
---Category
+-- Category
 CREATE TABLE `category` (
     `id` bigint NOT NULL AUTO_INCREMENT,
     `name` varchar(100) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
---Student
+-- Student
 CREATE TABLE `student` (
    `id` bigint NOT NULL AUTO_INCREMENT,
    `name` varchar(100) NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE `student` (
    UNIQUE KEY `student_UN` (`student_number`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---Contact
+-- Contact
 CREATE TABLE `contact` (
    `id` bigint NOT NULL AUTO_INCREMENT,
    `name` varchar(100) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE `contact` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
---Student & Contact
+-- Student & Contact
 CREATE TABLE `student_contact` (
    `id` bigint NOT NULL AUTO_INCREMENT,
    `stu_id` bigint NOT NULL,
