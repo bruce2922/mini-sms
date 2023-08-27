@@ -14,7 +14,7 @@ public class PageData implements Serializable {
     private int pageIndex;
     private List dataList;
 
-    public static int DEFAULT_PAGE_SIZE = 3;
+    public static int DEFAULT_PAGE_SIZE = 5;
 
 
     public PageData(List list, long totalCount, int currPage, int pageSize) {

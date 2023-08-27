@@ -11,4 +11,11 @@
         )
     </select>
 
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO contact(name, relationship_value, address, email, phone) VALUES
+        <foreach collection="list" separator="," item="contact">
+            (#{contact.name},#{contact.relationshipValue},#{contact.address},#{contact.email},#{contact.phone})
+        </foreach>
+    </insert>
+
 </mapper>

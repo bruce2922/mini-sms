@@ -28,4 +28,6 @@ public interface ContactMapper {
     long selectCount();
 
     long selectCountByIds(List ids);
+
+    int insertBatch(List<Contact> list);
 }

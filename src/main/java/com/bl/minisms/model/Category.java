@@ -28,4 +28,5 @@ public class Category implements Serializable {
     public Category(Long id) {
         this.id = id;
     }
+
 }

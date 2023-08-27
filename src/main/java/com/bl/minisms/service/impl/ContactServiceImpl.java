@@ -48,4 +48,9 @@ public class ContactServiceImpl implements ContactService {
     public long getCountByIds(List ids) {
         return contactMapper.selectCountByIds(ids);
     }
+
+    @Override
+    public int addBatch(List<Contact> list) {
+        return contactMapper.insertBatch(list);
+    }
 }

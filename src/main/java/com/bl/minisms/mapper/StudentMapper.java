@@ -26,4 +26,6 @@ public interface StudentMapper {
 
     @Select("SELECT COUNT(1) FROM student")
     long selectCount();
+
+    void truncateAllTables();
 }

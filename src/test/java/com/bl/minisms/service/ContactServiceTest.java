@@ -63,6 +63,18 @@ class ContactServiceTest {
         assertEquals(2,contactService.getCountByIds(idList));
     }
 
+    @Test
+    void addBatchTest() {
+        List list = new ArrayList();
+        Contact contact1 = new Contact("Ariel", Relationship.MOTHER, "CBD, Auckland, NZ", "ariel@gmail.com", "021 4567 8901");
+        Contact contact2 = new Contact("Bruce", Relationship.FATHER, "North Shore, Auckland, NZ", "bruce@gmail.com", "022 4567 8902");
+
+        list.add(contact1);
+        list.add(contact2);
+
+        assertEquals(list.size(),contactService.addBatch(list));
+    }
+
     private int add() {
         return contactService.add(contact);
     }
