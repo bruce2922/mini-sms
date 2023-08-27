@@ -17,4 +17,36 @@
 
 
 ### Development logs
-* 
+* Day 1: 2 hours
+  * Studying requirements and analysis
+  * Technology selection
+  * Model design
+  * DB initial
+
+* Day 2: 2 hours
+  * API design
+  * Dev env setup
+  * API development
+
+* Day 3: 3 hours
+  * Persistence layer design, development, testing, fixing bugs
+  
+* Day 4: 4 hours
+  * API testing, fixing bugs
+  * UI template selection
+  * List page, detail page UI and UX design, development, fixing bugs
+  
+* Day 5: 4 hours
+  * List page, detail page UI and UX design, development, fixing bugs
+  * Function testing, fixing bugs
+
+* Day 6: 5 hours
+  * Function testing, fixing bugs
+  * Data validation
+  * Function testing, fixing bugs
+  
+* Day 7: 5 hours
+  * Data validation, fixing bugs
+  * Data initial
+  * Publish to cloud server (AWS)
+  * Documentation
