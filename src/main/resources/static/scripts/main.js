@@ -240,8 +240,9 @@ function saveStu(stuId) {
     })
 }
 
-function removeStu(id) {
+function removeStu(id,e) {
 
+    $(e.target).mouseout();
     $.ajax({
         type: "delete",
         async: true,
